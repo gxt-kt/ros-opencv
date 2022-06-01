@@ -1,60 +1,89 @@
-#include "ros/ros.h"
-#include "opencv2/core.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/videoio.hpp"
-#include "image_transport/image_transport.h"
-#include <iostream>
+//#include "ros/ros.h"
+//#include "opencv2/core.hpp"
+//#include "opencv2/imgproc.hpp"
+//#include "opencv2/highgui.hpp"
+//#include "opencv2/videoio.hpp"
+//#include "image_transport/image_transport.h"
+//#include <iostream>
+//
+//using namespace cv;
+//using namespace std;
+//
+//void drawText(Mat & image);
+//
+//int main(int argc, char *argv[])
+//{
+//    //执行 ros 节点初始化
+//    ros::init(argc,argv,"node2_get_img_deal");
+//    //创建 ros 节点句柄(非必须)
+//    ros::NodeHandle n;
+//    //控制台输出 hello world
+//    ROS_INFO("hello world!");
+//
+////   image_transport::ImageTransport it(n);//用之前声明的节点句柄初始化it
+////   image_transport::Publisher pub = it.advertise("camera/image", 1);
+//
+//   // return 0;
+//    cout << "Built with OpenCV " << CV_VERSION << endl;
+//    Mat image;
+//    VideoCapture capture;
+//    capture.open(0);
+//    if(capture.isOpened()){
+//        cout << "Capture is opened" << endl;
+//        while(1){
+//            capture >> image;
+//            if(image.empty())
+//                break;
+//            drawText(image);
+//            imshow("Sample", image);
+//            if(waitKey(10) >= 0)
+//                break;
+//        }
+//    }
+//    else{
+//        cout << "No capture" << endl;
+//        image = Mat::zeros(480, 640, CV_8UC1);
+//        drawText(image);
+//        imshow("Sample", image);
+//        waitKey(0);
+//    }
+//    return 0;
+//}
+//
+//void drawText(Mat & image)
+//{
+//    putText(image, "Hello OpenCV",
+//            Point(20, 50),
+//            FONT_HERSHEY_COMPLEX, 1, // font face and scale
+//            Scalar(255, 255, 255), // white
+//            1, LINE_AA); // line thickness and type
+//}
 
-using namespace cv;
-using namespace std;
+#include <ros/ros.h>
+#include <image_transport/image_transport.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <cv_bridge/cv_bridge.h>
 
-void drawText(Mat & image);
-
-int main(int argc, char *argv[])
+void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 {
-    //执行 ros 节点初始化
-    ros::init(argc,argv,"node2_get_img_deal");
-    //创建 ros 节点句柄(非必须)
-    ros::NodeHandle n;
-    //控制台输出 hello world
-    ROS_INFO("hello world!");
-
-//   image_transport::ImageTransport it(n);//用之前声明的节点句柄初始化it
-//   image_transport::Publisher pub = it.advertise("camera/image", 1);
-
-   // return 0;
-    cout << "Built with OpenCV " << CV_VERSION << endl;
-    Mat image;
-    VideoCapture capture;
-    capture.open(0);
-    if(capture.isOpened()){
-        cout << "Capture is opened" << endl;
-        while(1){
-            capture >> image;
-            if(image.empty())
-                break;
-            drawText(image);
-            imshow("Sample", image);
-            if(waitKey(10) >= 0)
-                break;
-        }
+    try
+    {
+        cv::imshow("node2", cv_bridge::toCvShare(msg, "bgr8")->image);
     }
-    else{
-        cout << "No capture" << endl;
-        image = Mat::zeros(480, 640, CV_8UC1);
-        drawText(image);
-        imshow("Sample", image);
-        waitKey(0);
+    catch (cv_bridge::Exception& e)
+    {
+        ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
     }
-    return 0;
 }
 
-void drawText(Mat & image)
+int main(int argc, char **argv)
 {
-    putText(image, "Hello OpenCV",
-            Point(20, 50),
-            FONT_HERSHEY_COMPLEX, 1, // font face and scale
-            Scalar(255, 255, 255), // white
-            1, LINE_AA); // line thickness and type
+    ros::init(argc, argv, "image_listener");
+    ros::NodeHandle node2;
+    cv::namedWindow("view");
+    cv::startWindowThread();
+    image_transport::ImageTransport it(node2);
+    image_transport::Subscriber sub = it.subscribe("camera/image", 1, imageCallback);
+    ros::spin();
+    cv::destroyWindow("view");
 }
