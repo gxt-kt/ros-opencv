@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  image_transport
+  cv_bridge
 )
 #opencv 2022/6/1
 find_package(OpenCV REQUIRED)
@@ -121,6 +123,7 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
+include_directories(include ${OpenCV_INCLUDE_DIRS})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -135,7 +138,8 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/main.cpp)
+add_executable(node1  src/node1_send_img.cpp)
+add_executable(node2  src/node2_get_img_deal.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -148,11 +152,11 @@ add_executable(${PROJECT_NAME}_node src/main.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
-  ${catkin_LIBRARIES}
-)
+target_link_libraries(node1 ${catkin_LIBRARIES})
+target_link_libraries(node2 ${catkin_LIBRARIES})
 # opencv 2022/6/1
-target_link_libraries(${PROJECT_NAME}_node ${OpenCV_LIBS})
+target_link_libraries(node1 ${OpenCV_LIBS})
+target_link_libraries(node2 ${OpenCV_LIBS})
 
 #############
 ## Install ##

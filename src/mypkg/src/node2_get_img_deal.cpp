@@ -3,6 +3,7 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
 #include "opencv2/videoio.hpp"
+#include "image_transport/image_transport.h"
 #include <iostream>
 
 using namespace cv;
@@ -13,14 +14,14 @@ void drawText(Mat & image);
 int main(int argc, char *argv[])
 {
     //执行 ros 节点初始化
-    ros::init(argc,argv,"hello");
+    ros::init(argc,argv,"node2_get_img_deal");
     //创建 ros 节点句柄(非必须)
     ros::NodeHandle n;
     //控制台输出 hello world
     ROS_INFO("hello world!");
 
-   // image_transport::ImageTransport it(nh);//用之前声明的节点句柄初始化it
-   // image_transport::Publisher pub = it.advertise("camera/image", 1);
+//   image_transport::ImageTransport it(n);//用之前声明的节点句柄初始化it
+//   image_transport::Publisher pub = it.advertise("camera/image", 1);
 
    // return 0;
     cout << "Built with OpenCV " << CV_VERSION << endl;
