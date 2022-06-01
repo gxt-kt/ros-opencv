@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
     //控制台输出 hello world
     ROS_INFO("hello world!");
 
-    image_transport::ImageTransport it(nh);//用之前声明的节点句柄初始化it
-    image_transport::Publisher pub = it.advertise("camera/image", 1);
+   // image_transport::ImageTransport it(nh);//用之前声明的节点句柄初始化it
+   // image_transport::Publisher pub = it.advertise("camera/image", 1);
 
    // return 0;
     cout << "Built with OpenCV " << CV_VERSION << endl;
