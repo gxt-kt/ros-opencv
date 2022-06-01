@@ -1,0 +1,2 @@
+mypkg
+-DCATKIN_DEVEL_PREFIX=/home/kt/Desktop/ros_test/devel -DCMAKE_INSTALL_PREFIX=/home/kt/Desktop/ros_test/install -G Unix Makefiles
