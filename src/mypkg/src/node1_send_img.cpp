@@ -63,10 +63,10 @@ int main(int argc, char *argv[])
             capture >> image;
             if(image.empty())
                 break;
-            drawText(image);
-            imshow("image", image);
-            if(waitKey(10) >= 0)
-                break;
+//            drawText(image);
+//            imshow("image", image);
+//            if(waitKey(10) >= 0)
+//                break;
             //===========
             sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
             ros::Rate loop_rate(30);
