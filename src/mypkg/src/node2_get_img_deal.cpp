@@ -84,9 +84,11 @@ class GetAndSend {
       position_point.push_back(center);
 
       // send point to node3
-
       mypkg::point send_point;
       send_point.point_x = center.x;
+      send_point.point_y=center.y;
+      send_point.rec_w=ballsBox[max_find_n].width;
+      send_point.rec_h=ballsBox[max_find_n].height;
       pub_.publish(send_point);
     }
     // 根据存储点画线
@@ -121,7 +123,7 @@ class GetAndSend {
   ros::Publisher pub_;
   // 定义找到的历史点
   std::vector<cv::Point> position_point;
-  int show=1;
+  int show=0;
 };
 
 //void ImageDeal(cv::Mat img);

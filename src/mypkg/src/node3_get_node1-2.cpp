@@ -9,21 +9,42 @@
 #include <vector>
 #include "mypkg/point.h"
 
-void ImageDeal(cv::Mat img);
+std::vector<cv::Point> position_point;
+cv::Rect position_rect;
+bool find_flag = 0;
 
 void imageCallback(const sensor_msgs::ImageConstPtr &msg) {
   try {
     cv::Mat img = cv_bridge::toCvShare(msg, "bgr8")->image;
-    ImageDeal(img);
+
+    // 根据存储点画线
+    if (position_point.size() > 1) {
+      for (int i = 0; i < position_point.size() - 1; i++) {
+        cv::line(img, position_point[i], position_point[i + 1], cv::Scalar(255, 0, 0), 2);
+      }
+    }
+    if (find_flag) {
+      cv::rectangle(img, position_rect, CV_RGB(0, 255, 0), 2);
+      find_flag = 0;
+    }
+    cv::imshow("final result", img);
   }
   catch (cv_bridge::Exception &e) {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
 }
 
-
-void DealNode2Data(mypkg::point find_point){
-  ROS_INFO("point_x:%d",find_point.point_x);
+void DealNode2Data(mypkg::point find_point) {
+  ROS_INFO("point_x:%d point_y:%d", find_point.point_x, find_point.point_y);
+  cv::Point point;
+  point.x = find_point.point_x;
+  point.y = find_point.point_y;
+  position_rect.width = find_point.rec_w;
+  position_rect.height = find_point.rec_h;
+  position_rect.x = find_point.point_x-find_point.rec_w/2;
+  position_rect.y = find_point.point_y-find_point.rec_h/2;
+  position_point.push_back(point);
+  find_flag = 1;
 }
 
 int main(int argc, char **argv) {
@@ -34,16 +55,10 @@ int main(int argc, char **argv) {
   image_transport::ImageTransport it(node3);
   image_transport::Subscriber sub = it.subscribe("camera/image", 1, imageCallback);
 
-  ros::Subscriber sub2 = node3.subscribe<mypkg::point>("find_point",10,DealNode2Data);
+  ros::Subscriber sub2 = node3.subscribe<mypkg::point>("find_point", 10, DealNode2Data);
 
   ros::spin();
   return 0;
   //cv::destroyWindow("view");
 }
 
-
-void ImageDeal(cv::Mat img) {
-  // show the image
-  //cv::imshow("node3", img);
-
-}
