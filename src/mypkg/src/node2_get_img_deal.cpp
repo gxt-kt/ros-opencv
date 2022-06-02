@@ -6,6 +6,7 @@
 
 #define FIND_COLOR_LOW blue_low
 #define FIND_COLOR_UP blue_up
+#define MIN_AREA 300
 
 // 设定红色阈值，HSV空间
 cv::Scalar red_low = {0, 43, 46};
@@ -49,12 +50,12 @@ void ImageDeal(cv::Mat img) {
     cv::inRange(img_hsv, FIND_COLOR_LOW, FIND_COLOR_UP, img_mask);
     // mask erode 腐蚀
     cv::Mat img_erode;
-    cv::erode(img_mask, img_erode, 2);
+    cv::erode(img_mask, img_erode, 3);
     // mask dilate 膨胀
     cv::Mat img_dilate;
-    cv::dilate(img_erode, img_dilate, 2);
+    cv::dilate(img_erode, img_dilate, 4);
     // show
-    cv::imshow("dilate",img_dilate);
+    cv::imshow("dilate", img_dilate);
     // get the img contours
     std::vector<std::vector<cv::Point> > img_contours;
     cv::findContours(img_dilate, img_contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
@@ -62,16 +63,21 @@ void ImageDeal(cv::Mat img) {
     std::vector<std::vector<cv::Point> > balls;
     std::vector<cv::Rect> ballsBox;
     for (size_t i = 0; i < img_contours.size(); i++) {
-        cv::Rect bBox;
-        bBox = cv::boundingRect(img_contours[i]);
+        cv::Rect img_find_rect;
+        img_find_rect = cv::boundingRect(img_contours[i]);
 
-        float ratio = (float) bBox.width / (float) bBox.height;
-        if (ratio > 1.0f)
-            ratio = 1.0f / ratio;
         // Searching for a bBox almost square
-        if (ratio > 0.75 && bBox.area() >= 3000) {
+//        float ratio = (float) bBox.width / (float) bBox.height;
+//        if (ratio > 1.0f)
+//            ratio = 1.0f / ratio;
+//        if (ratio > 0.75 && bBox.area() >= MIN_AREA) {
+//            balls.push_back(img_contours[i]);
+//            ballsBox.push_back(bBox);
+//        }
+//      // just area condition
+        if (cv::contourArea(img_contours[i]) >= MIN_AREA) {
             balls.push_back(img_contours[i]);
-            ballsBox.push_back(bBox);
+            ballsBox.push_back(img_find_rect);
         }
     }
 
@@ -80,10 +86,11 @@ void ImageDeal(cv::Mat img) {
     if (ballsBox.size() > 0) {
         int max_find_n = 0;
         for (int i = 1; i < ballsBox.size(); i++) {
-            if (ballsBox[i].area() > ballsBox[max_find_n].area()) {
+            if (cv::contourArea(balls[i]) > cv::contourArea(balls[max_find_n])) {
                 max_find_n = i;
             }
         }
+        //ROS_INFO("num=%d",cv::countNonZero(img.));
         cv::drawContours(img, balls, max_find_n, CV_RGB(20, 150, 20), 1);
         cv::rectangle(img, ballsBox[max_find_n], CV_RGB(0, 255, 0), 2);
 
