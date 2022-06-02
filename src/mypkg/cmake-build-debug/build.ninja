@@ -328,7 +328,7 @@ build CMakeFiles/node1.dir/src/node1_send_img.cpp.o: CXX_COMPILER__node1_Debug /
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"mypkg\"
   DEP_FILE = CMakeFiles/node1.dir/src/node1_send_img.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/kt/Desktop/ros_test/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/opencv4 -I/home/kt/Desktop/ros_test/src/mypkg/include -isystem /usr/local/include/opencv4
+  INCLUDES = -I/home/kt/Desktop/ros_test/devel/include -I/home/kt/Desktop/ros_test/src/mypkg/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/opencv4 -isystem /usr/local/include/opencv4
   OBJECT_DIR = CMakeFiles/node1.dir
   OBJECT_FILE_DIR = CMakeFiles/node1.dir/src
 
@@ -375,7 +375,7 @@ build CMakeFiles/node3.dir/src/node3_get_node1-2.cpp.o: CXX_COMPILER__node3_Debu
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"mypkg\"
   DEP_FILE = CMakeFiles/node3.dir/src/node3_get_node1-2.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/kt/Desktop/ros_test/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/opencv4 -I/home/kt/Desktop/ros_test/src/mypkg/include -isystem /usr/local/include/opencv4
+  INCLUDES = -I/home/kt/Desktop/ros_test/devel/include -I/home/kt/Desktop/ros_test/src/mypkg/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/opencv4 -isystem /usr/local/include/opencv4
   OBJECT_DIR = CMakeFiles/node3.dir
   OBJECT_FILE_DIR = CMakeFiles/node3.dir/src
 
@@ -428,7 +428,7 @@ build CMakeFiles/node2.dir/src/node2_get_img_deal.cpp.o: CXX_COMPILER__node2_Deb
   DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"mypkg\"
   DEP_FILE = CMakeFiles/node2.dir/src/node2_get_img_deal.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/kt/Desktop/ros_test/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/opencv4 -I/home/kt/Desktop/ros_test/src/mypkg/include -isystem /usr/local/include/opencv4
+  INCLUDES = -I/home/kt/Desktop/ros_test/devel/include -I/home/kt/Desktop/ros_test/src/mypkg/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/opencv4 -isystem /usr/local/include/opencv4
   OBJECT_DIR = CMakeFiles/node2.dir
   OBJECT_FILE_DIR = CMakeFiles/node2.dir/src
 

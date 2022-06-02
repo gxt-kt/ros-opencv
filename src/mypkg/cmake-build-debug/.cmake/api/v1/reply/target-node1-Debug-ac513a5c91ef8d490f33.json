@@ -218,6 +218,10 @@
 				},
 				{
 					"backtrace" : 25,
+					"path" : "/home/kt/Desktop/ros_test/src/mypkg/include"
+				},
+				{
+					"backtrace" : 25,
 					"path" : "/opt/ros/noetic/include"
 				},
 				{
@@ -227,10 +231,6 @@
 				{
 					"backtrace" : 25,
 					"path" : "/usr/include/opencv4"
-				},
-				{
-					"backtrace" : 26,
-					"path" : "/home/kt/Desktop/ros_test/src/mypkg/include"
 				},
 				{
 					"backtrace" : 26,

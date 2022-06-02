@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 //    return 0;
     cv::Mat image;
     cv::VideoCapture capture;
-    capture.open(0);
+    capture.open(2);
     if(capture.isOpened()){
         ROS_INFO("capture opened");
         while(1){

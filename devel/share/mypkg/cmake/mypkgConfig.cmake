@@ -74,7 +74,7 @@ if("TRUE" STREQUAL "TRUE")
 else()
   set(mypkg_SOURCE_PREFIX "")
   set(mypkg_DEVEL_PREFIX "")
-  set(mypkg_INSTALL_PREFIX /usr/local)
+  set(mypkg_INSTALL_PREFIX /home/kt/Desktop/ros_test/install)
   set(mypkg_PREFIX ${mypkg_INSTALL_PREFIX})
 endif()
 
