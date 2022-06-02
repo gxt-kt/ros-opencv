@@ -13,4 +13,4 @@ export PKG_CONFIG_PATH="/home/kt/Desktop/ros_test/devel/lib/pkgconfig:$PKG_CONFI
 export PWD='/home/kt/Desktop/ros_test/build'
 export PYTHONPATH="/home/kt/Desktop/ros_test/devel/lib/python3/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES='/home/kt/Desktop/ros_test/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/kt/Desktop/ros_test/src:$ROS_PACKAGE_PATH"
+export ROS_PACKAGE_PATH="/home/kt/Desktop/ros_test/src:/home/kt/Desktop/ros_test/src/mypkg:$ROS_PACKAGE_PATH"

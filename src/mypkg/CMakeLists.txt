@@ -145,6 +145,11 @@ include_directories(include ${OpenCV_INCLUDE_DIRS})
 add_executable(node1  src/node1_send_img.cpp )
 add_executable(node2  src/node2_get_img_deal.cpp)
 add_executable(node3  src/node3_get_node1-2.cpp)
+
+add_dependencies(node1 ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(node2 ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(node3 ${PROJECT_NAME}_generate_messages_cpp)
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use

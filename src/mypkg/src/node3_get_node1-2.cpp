@@ -7,7 +7,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <vector>
-
+#include "mypkg/point.h"
 
 void ImageDeal(cv::Mat img);
 
@@ -21,6 +21,11 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg) {
   }
 }
 
+
+void DealNode2Data(mypkg::point find_point){
+  ROS_INFO("point_x:%d",find_point.point_x);
+}
+
 int main(int argc, char **argv) {
   ros::init(argc, argv, "node3_get_node1_2");
   ros::NodeHandle node3;
@@ -28,13 +33,17 @@ int main(int argc, char **argv) {
   cv::startWindowThread();
   image_transport::ImageTransport it(node3);
   image_transport::Subscriber sub = it.subscribe("camera/image", 1, imageCallback);
+
+  ros::Subscriber sub2 = node3.subscribe<mypkg::point>("find_point",10,DealNode2Data);
+
   ros::spin();
+  return 0;
   //cv::destroyWindow("view");
 }
 
 
 void ImageDeal(cv::Mat img) {
   // show the image
-  cv::imshow("node3", img);
+  //cv::imshow("node3", img);
 
 }
