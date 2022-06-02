@@ -22,6 +22,12 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
+/home/kt/Desktop/ros_test/src/mypkg/include/mypkg/color_config.h
+string
+-
+opencv2/highgui/highgui.hpp
+-
+
 /home/kt/Desktop/ros_test/src/mypkg/include/mypkg/node2.h
 ros/ros.h
 -
@@ -35,6 +41,8 @@ vector
 -
 mypkg/point.h
 /home/kt/Desktop/ros_test/src/mypkg/include/mypkg/mypkg/point.h
+mypkg/color_config.h
+/home/kt/Desktop/ros_test/src/mypkg/include/mypkg/mypkg/color_config.h
 
 /home/kt/Desktop/ros_test/src/mypkg/src/node2_get_img_deal.cpp
 ros/ros.h

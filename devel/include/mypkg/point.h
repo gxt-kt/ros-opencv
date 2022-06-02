@@ -24,25 +24,37 @@ struct point_
   typedef point_<ContainerAllocator> Type;
 
   point_()
-    : color(0)
+    : red(0)
+    , green(0)
+    , blue(0)
     , point_x(0)
     , point_y(0)
     , rec_w(0)
-    , rec_h(0)  {
+    , rec_h(0)
+    , col_name()  {
     }
   point_(const ContainerAllocator& _alloc)
-    : color(0)
+    : red(0)
+    , green(0)
+    , blue(0)
     , point_x(0)
     , point_y(0)
     , rec_w(0)
-    , rec_h(0)  {
+    , rec_h(0)
+    , col_name(_alloc)  {
   (void)_alloc;
     }
 
 
 
-   typedef int32_t _color_type;
-  _color_type color;
+   typedef uint8_t _red_type;
+  _red_type red;
+
+   typedef uint8_t _green_type;
+  _green_type green;
+
+   typedef uint8_t _blue_type;
+  _blue_type blue;
 
    typedef int32_t _point_x_type;
   _point_x_type point_x;
@@ -55,6 +67,9 @@ struct point_
 
    typedef int32_t _rec_h_type;
   _rec_h_type rec_h;
+
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _col_name_type;
+  _col_name_type col_name;
 
 
 
@@ -85,11 +100,14 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::mypkg::point_<ContainerAllocator1> & lhs, const ::mypkg::point_<ContainerAllocator2> & rhs)
 {
-  return lhs.color == rhs.color &&
+  return lhs.red == rhs.red &&
+    lhs.green == rhs.green &&
+    lhs.blue == rhs.blue &&
     lhs.point_x == rhs.point_x &&
     lhs.point_y == rhs.point_y &&
     lhs.rec_w == rhs.rec_w &&
-    lhs.rec_h == rhs.rec_h;
+    lhs.rec_h == rhs.rec_h &&
+    lhs.col_name == rhs.col_name;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -122,12 +140,12 @@ struct IsMessage< ::mypkg::point_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::mypkg::point_<ContainerAllocator> >
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::mypkg::point_<ContainerAllocator> const>
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
@@ -146,12 +164,12 @@ struct MD5Sum< ::mypkg::point_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "ced0dd05440ad59425463c1af8c9cc38";
+    return "3b20bcbd4ecfee1b0e2965ef3012f41b";
   }
 
   static const char* value(const ::mypkg::point_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xced0dd05440ad594ULL;
-  static const uint64_t static_value2 = 0x25463c1af8c9cc38ULL;
+  static const uint64_t static_value1 = 0x3b20bcbd4ecfee1bULL;
+  static const uint64_t static_value2 = 0x0e2965ef3012f41bULL;
 };
 
 template<class ContainerAllocator>
@@ -170,11 +188,14 @@ struct Definition< ::mypkg::point_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "int32 color\n"
+    return "uint8 red\n"
+"uint8 green\n"
+"uint8 blue\n"
 "int32 point_x\n"
 "int32 point_y\n"
 "int32 rec_w\n"
 "int32 rec_h\n"
+"string col_name\n"
 ;
   }
 
@@ -193,11 +214,14 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.color);
+      stream.next(m.red);
+      stream.next(m.green);
+      stream.next(m.blue);
       stream.next(m.point_x);
       stream.next(m.point_y);
       stream.next(m.rec_w);
       stream.next(m.rec_h);
+      stream.next(m.col_name);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -216,8 +240,12 @@ struct Printer< ::mypkg::point_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::mypkg::point_<ContainerAllocator>& v)
   {
-    s << indent << "color: ";
-    Printer<int32_t>::stream(s, indent + "  ", v.color);
+    s << indent << "red: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.red);
+    s << indent << "green: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.green);
+    s << indent << "blue: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.blue);
     s << indent << "point_x: ";
     Printer<int32_t>::stream(s, indent + "  ", v.point_x);
     s << indent << "point_y: ";
@@ -226,6 +254,8 @@ struct Printer< ::mypkg::point_<ContainerAllocator> >
     Printer<int32_t>::stream(s, indent + "  ", v.rec_w);
     s << indent << "rec_h: ";
     Printer<int32_t>::stream(s, indent + "  ", v.rec_h);
+    s << indent << "col_name: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.col_name);
   }
 };
 

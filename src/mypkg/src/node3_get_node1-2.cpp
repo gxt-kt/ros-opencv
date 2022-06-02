@@ -8,25 +8,37 @@
 #include <cv_bridge/cv_bridge.h>
 #include <vector>
 #include "mypkg/point.h"
+#include "mypkg/node3.h"
 
-std::vector<cv::Point> position_point;
-cv::Rect position_rect;
-bool find_flag = 0;
+GetNode2Message get_red;
+GetNode2Message get_green;
+GetNode2Message get_blue;
+GetNode2Message get_yellow;
+
+void DrawRectangle(GetNode2Message &get_col, cv::Mat &img);
+void DrawLine(GetNode2Message &get_col, cv::Mat &img);
+void ColorPointDeal(GetNode2Message &get_col, mypkg::point find_point);
 
 void imageCallback(const sensor_msgs::ImageConstPtr &msg) {
   try {
     cv::Mat img = cv_bridge::toCvShare(msg, "bgr8")->image;
 
-    // 根据存储点画线
-    if (position_point.size() > 1) {
-      for (int i = 0; i < position_point.size() - 1; i++) {
-        cv::line(img, position_point[i], position_point[i + 1], cv::Scalar(255, 0, 0), 2);
-      }
-    }
-    if (find_flag) {
-      cv::rectangle(img, position_rect, CV_RGB(0, 255, 0), 2);
-      find_flag = 0;
-    }
+//    // 根据存储点画线
+//    if (position_point.size() > 1) {
+//      for (int i = 0; i < position_point.size() - 1; i++) {
+//        cv::line(img, position_point[i], position_point[i + 1], cv::Scalar(255, 0, 0), 2);
+//      }
+//    }
+    DrawRectangle(get_red, img);
+    DrawRectangle(get_green, img);
+    DrawRectangle(get_blue, img);
+    DrawRectangle(get_yellow, img);
+
+    DrawLine(get_red, img);
+    DrawLine(get_green, img);
+    DrawLine(get_blue, img);
+    DrawLine(get_yellow, img);
+
     cv::imshow("final result", img);
   }
   catch (cv_bridge::Exception &e) {
@@ -34,17 +46,48 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg) {
   }
 }
 
+void DrawLine(GetNode2Message &get_col, cv::Mat &img) {
+  if (get_col.point.size() > 1) {
+    for (int i = 0; i < get_col.point.size() - 1; i++) {
+      cv::line(img, cv::Point(get_col.point[i].point_x, get_col.point[i].point_y),
+               cv::Point(get_col.point[i + 1].point_x, get_col.point[i + 1].point_y),
+               cv::Scalar(get_col.point[0].blue, get_col.point[0].green, get_col.point[0].red), 2);
+    }
+  }
+}
+
+void DrawRectangle(GetNode2Message &get_col, cv::Mat &img) {
+  if (get_col.flush) {
+    //ROS_INFO("FLUSH1");
+    cv::rectangle(img, get_col.position_rect, \
+                    CV_RGB(get_col.point.back().red, get_col.point.back().green, get_col.point.back().blue), 2);
+    get_col.flush = 0;
+  }
+  //ROS_INFO("DEBUG1");
+}
+
 void DealNode2Data(mypkg::point find_point) {
-  ROS_INFO("point_x:%d point_y:%d", find_point.point_x, find_point.point_y);
-  cv::Point point;
-  point.x = find_point.point_x;
-  point.y = find_point.point_y;
-  position_rect.width = find_point.rec_w;
-  position_rect.height = find_point.rec_h;
-  position_rect.x = find_point.point_x-find_point.rec_w/2;
-  position_rect.y = find_point.point_y-find_point.rec_h/2;
-  position_point.push_back(point);
-  find_flag = 1;
+  //ROS_INFO("point_x:%d point_y:%d", find_point.point_x, find_point.point_y);
+  // get red point
+  if (find_point.col_name == "red") {
+    ColorPointDeal(get_red, find_point);
+  } else if (find_point.col_name == "green") {
+    ColorPointDeal(get_green, find_point);
+  } else if (find_point.col_name == "blue") {
+    ColorPointDeal(get_blue, find_point);
+  } else if (find_point.col_name == "yellow") {
+    ColorPointDeal(get_yellow, find_point);
+  }
+}
+
+void ColorPointDeal(GetNode2Message &get_col, mypkg::point find_point) {
+  //ROS_INFO("point_x:%d point_y:%d", find_point.point_x, find_point.point_y);
+  get_col.point.push_back(find_point);
+  get_col.flush = 1; // flush
+  get_col.position_rect.width = find_point.rec_w;
+  get_col.position_rect.height = find_point.rec_h;
+  get_col.position_rect.x = find_point.point_x - find_point.rec_w / 2;
+  get_col.position_rect.y = find_point.point_y - find_point.rec_h / 2;
 }
 
 int main(int argc, char **argv) {

@@ -8,17 +8,19 @@ import struct
 
 
 class point(genpy.Message):
-  _md5sum = "ced0dd05440ad59425463c1af8c9cc38"
+  _md5sum = "3b20bcbd4ecfee1b0e2965ef3012f41b"
   _type = "mypkg/point"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """int32 color
+  _full_text = """uint8 red
+uint8 green
+uint8 blue
 int32 point_x
 int32 point_y
 int32 rec_w
 int32 rec_h
-"""
-  __slots__ = ['color','point_x','point_y','rec_w','rec_h']
-  _slot_types = ['int32','int32','int32','int32','int32']
+string col_name"""
+  __slots__ = ['red','green','blue','point_x','point_y','rec_w','rec_h','col_name']
+  _slot_types = ['uint8','uint8','uint8','int32','int32','int32','int32','string']
 
   def __init__(self, *args, **kwds):
     """
@@ -28,7 +30,7 @@ int32 rec_h
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       color,point_x,point_y,rec_w,rec_h
+       red,green,blue,point_x,point_y,rec_w,rec_h,col_name
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -37,8 +39,12 @@ int32 rec_h
     if args or kwds:
       super(point, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
-      if self.color is None:
-        self.color = 0
+      if self.red is None:
+        self.red = 0
+      if self.green is None:
+        self.green = 0
+      if self.blue is None:
+        self.blue = 0
       if self.point_x is None:
         self.point_x = 0
       if self.point_y is None:
@@ -47,12 +53,17 @@ int32 rec_h
         self.rec_w = 0
       if self.rec_h is None:
         self.rec_h = 0
+      if self.col_name is None:
+        self.col_name = ''
     else:
-      self.color = 0
+      self.red = 0
+      self.green = 0
+      self.blue = 0
       self.point_x = 0
       self.point_y = 0
       self.rec_w = 0
       self.rec_h = 0
+      self.col_name = ''
 
   def _get_types(self):
     """
@@ -67,7 +78,13 @@ int32 rec_h
     """
     try:
       _x = self
-      buff.write(_get_struct_5i().pack(_x.color, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h))
+      buff.write(_get_struct_3B4i().pack(_x.red, _x.green, _x.blue, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h))
+      _x = self.col_name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -82,8 +99,17 @@ int32 rec_h
       end = 0
       _x = self
       start = end
-      end += 20
-      (_x.color, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h,) = _get_struct_5i().unpack(str[start:end])
+      end += 19
+      (_x.red, _x.green, _x.blue, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h,) = _get_struct_3B4i().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.col_name = str[start:end].decode('utf-8', 'rosmsg')
+      else:
+        self.col_name = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -97,7 +123,13 @@ int32 rec_h
     """
     try:
       _x = self
-      buff.write(_get_struct_5i().pack(_x.color, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h))
+      buff.write(_get_struct_3B4i().pack(_x.red, _x.green, _x.blue, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h))
+      _x = self.col_name
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -113,8 +145,17 @@ int32 rec_h
       end = 0
       _x = self
       start = end
-      end += 20
-      (_x.color, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h,) = _get_struct_5i().unpack(str[start:end])
+      end += 19
+      (_x.red, _x.green, _x.blue, _x.point_x, _x.point_y, _x.rec_w, _x.rec_h,) = _get_struct_3B4i().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.col_name = str[start:end].decode('utf-8', 'rosmsg')
+      else:
+        self.col_name = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -123,9 +164,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_5i = None
-def _get_struct_5i():
-    global _struct_5i
-    if _struct_5i is None:
-        _struct_5i = struct.Struct("<5i")
-    return _struct_5i
+_struct_3B4i = None
+def _get_struct_3B4i():
+    global _struct_3B4i
+    if _struct_3B4i is None:
+        _struct_3B4i = struct.Struct("<3B4i")
+    return _struct_3B4i
