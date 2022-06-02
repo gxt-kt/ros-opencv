@@ -3,6 +3,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 #include <vector>
+#include "mypkg/point.h"
 
 #define FIND_COLOR_LOW blue_low
 #define FIND_COLOR_UP blue_up
@@ -34,6 +35,7 @@ int main(int argc, char **argv) {
   cv::startWindowThread();
   image_transport::ImageTransport it(node2);
   image_transport::Subscriber sub = it.subscribe("camera/image", 1, imageCallback);
+
   ros::spin();
   //cv::destroyWindow("view");
 }
@@ -104,6 +106,12 @@ void ImageDeal(cv::Mat img) {
     cv::circle(img, center, 2, CV_RGB(20, 150, 20), -1);
 
     position_point.push_back(center);
+
+    // send point to node3
+    //ros::Publisher node2_to_node3 = node2.advertise<mypkg::point>("find_point",20);
+    mypkg::point send_point;
+    send_point.point_x =10;
+
   }
   // 根据存储点画线
   if (position_point.size()>1) {

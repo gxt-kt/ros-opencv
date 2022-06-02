@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   image_transport
   cv_bridge
+  message_generation
 )
 #opencv 2022/6/1
 find_package(OpenCV REQUIRED)
@@ -51,11 +52,11 @@ find_package(OpenCV REQUIRED)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(
+   FILES
+   point.msg
+   # Message2.msg
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -72,10 +73,10 @@ find_package(OpenCV REQUIRED)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+ generate_messages(
+   DEPENDENCIES
+   std_msgs
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -111,6 +112,7 @@ catkin_package(
 #  LIBRARIES mypkg
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
 )
 
 ###########
@@ -124,7 +126,9 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 include_directories(include ${OpenCV_INCLUDE_DIRS})
-
+# include_directories(SYSTEM "/foo/bar")
+# INCLUDE_DIRECTORIES(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/../../devel/include/mypkg)
+# INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/../devel/include/mypkg")
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/mypkg.cpp
@@ -138,9 +142,9 @@ include_directories(include ${OpenCV_INCLUDE_DIRS})
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(node1  src/node1_send_img.cpp)
+add_executable(node1  src/node1_send_img.cpp )
 add_executable(node2  src/node2_get_img_deal.cpp)
-
+add_executable(node3  src/node3_get_node1-2.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -154,9 +158,11 @@ add_executable(node2  src/node2_get_img_deal.cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(node1 ${catkin_LIBRARIES})
 target_link_libraries(node2 ${catkin_LIBRARIES})
+target_link_libraries(node3 ${catkin_LIBRARIES})
 # opencv 2022/6/1
 target_link_libraries(node1 ${OpenCV_LIBS})
 target_link_libraries(node2 ${OpenCV_LIBS})
+target_link_libraries(node3 ${OpenCV_LIBS})
 
 #############
 ## Install ##

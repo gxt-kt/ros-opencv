@@ -167,3 +167,5 @@ void drawText(Mat & image)
             1, LINE_AA); // line thickness and type
 }
 
+//std::vector<uint8_t> color
+//std::vector<cv::Point> point_position
