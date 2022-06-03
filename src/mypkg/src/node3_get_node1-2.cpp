@@ -83,6 +83,9 @@ void DealNode2Data(mypkg::point find_point) {
 void ColorPointDeal(GetNode2Message &get_col, mypkg::point find_point) {
   //ROS_INFO("point_x:%d point_y:%d", find_point.point_x, find_point.point_y);
   get_col.point.push_back(find_point);
+  if(get_col.point.size()>20){
+    get_col.point.erase(get_col.point.begin());
+  }
   get_col.flush = 1; // flush
   get_col.position_rect.width = find_point.rec_w;
   get_col.position_rect.height = find_point.rec_h;
