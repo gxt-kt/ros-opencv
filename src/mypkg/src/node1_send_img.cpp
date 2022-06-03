@@ -66,96 +66,32 @@ int main(int argc, char *argv[]) {
         break;
 //            drawText(image);
 //            imshow("image", image);
-//            if(waitKey(10) >= 0)
-//                break;
+//      if (waitKey(1) >= 0)
+//        break;
       //===========
       sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
-      ros::Rate loop_rate(30);
+      //ros::Rate loop_rate(60);
       if (node1.ok()) {
         pub.publish(msg);
-        static int n = 0;
-        ROS_INFO("running n=%d", n++);
+        static int fps = 0;
+        ros::Time t1 = ros::Time::now();
+        uint64 ms = t1.toNSec() / 1000000;
+        static uint64 ms_last;
+        if (ms - ms_last > 1000) {
+          ROS_INFO("fps = %d", fps);
+          fps=0;
+          ms_last=ms;
+        }
+        fps++;
+        //ROS_INFO("running n=%ld", ms);
         ros::spinOnce();
-        loop_rate.sleep();
+        //loop_rate.sleep();
       }
     }
   } else {
     ROS_INFO("capture open failed");
   }
-  //cv::Mat image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);
-  //sensor_msgs::ImagePtr msg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image).toImageMsg();
-
-
-
-//    ros::Rate loop_rate(5);
-//    while (node1.ok()) {
-//        // pub.publish(msg);
-//        static int n=0;
-//        ROS_INFO("running n=%d",n++);
-//        ros::spinOnce();
-//        loop_rate.sleep();
-//    }
-
-
-//    //4.实例化 发布者 对象
-//    //泛型: 发布的消息类型
-//    //参数1: 要发布到的话题
-//    //参数2: 队列中最大保存的消息数，超出此阀值时，先进的先销毁(时间早的先销毁)
-//    ros::Publisher pub = node1.advertise<std_msgs::String>("connect1",10);
-//    //5.组织被发布的数据，并编写逻辑发布数据
-//    //数据(动态组织)
-//    std_msgs::String msg;
-//    //set time 10times/1s
-//    ros::Rate tim(10);
-//    int cout;
-//    //delay to ensure set the connect
-//    ros::Duration(1.0).sleep();
-//    //ensure the ros is available
-//    while(ros::ok())
-//    {
-//        //set the send msg
-//        std::stringstream sendStr;
-//        cout++;
-//        sendStr<<"sendStr num->"<<cout;
-//        msg.data=sendStr.str();
-//        //send msg
-//        pub.publish(msg);
-//        //send the debug info
-//        ROS_INFO("send text and num=%d\n",cout);
-//        //ros-sleep
-//        tim.sleep();
-//        //change mission
-//        ros::spinOnce();
-//    }
-
-//   image_transport::ImageTransport it(n);//用之前声明的节点句柄初始化it
-//   image_transport::Publisher pub = it.advertise("camera/image", 1);
-
-//    cout << "Built with OpenCV " << CV_VERSION << endl;
-//    Mat image;
-//    VideoCapture capture;
-//    capture.open(0);
-//    if(capture.isOpened()){
-//        cout << "Capture is opened" << endl;
-//        while(1){
-//            capture >> image;
-//            if(image.empty())
-//                break;
-//            drawText(image);
-//            imshow("Sample", image);
-//            if(waitKey(10) >= 0)
-//                break;
-//        }
-//    }
-//    else{
-//        cout << "No capture" << endl;
-//        image = Mat::zeros(480, 640, CV_8UC1);
-//        drawText(image);
-//        imshow("Sample", image);
-//        waitKey(0);
-//    }
-//    return 0;
-
+  return 0;
 }
 
 void drawText(Mat &image) {

@@ -57,6 +57,7 @@
 /home/kt/Desktop/ros_test/build/mypkg/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir
 /home/kt/Desktop/ros_test/build/mypkg/CMakeFiles/mypkg_gennodejs.dir
 /home/kt/Desktop/ros_test/build/mypkg/CMakeFiles/roscpp_generate_messages_nodejs.dir
+/home/kt/Desktop/ros_test/build/mypkg/CMakeFiles/node4.dir
 /home/kt/Desktop/ros_test/build/mypkg/CMakeFiles/std_msgs_generate_messages_eus.dir
 /home/kt/Desktop/ros_test/build/mypkg/CMakeFiles/geometry_msgs_generate_messages_lisp.dir
 /home/kt/Desktop/ros_test/build/mypkg/CMakeFiles/std_msgs_generate_messages_lisp.dir

@@ -423,6 +423,21 @@ roscpp_generate_messages_nodejs/fast:
 .PHONY : roscpp_generate_messages_nodejs/fast
 
 # Convenience name for target.
+mypkg/CMakeFiles/node4.dir/rule:
+	cd /home/kt/Desktop/ros_test/build && $(MAKE) -f CMakeFiles/Makefile2 mypkg/CMakeFiles/node4.dir/rule
+.PHONY : mypkg/CMakeFiles/node4.dir/rule
+
+# Convenience name for target.
+node4: mypkg/CMakeFiles/node4.dir/rule
+
+.PHONY : node4
+
+# fast build rule for target.
+node4/fast:
+	cd /home/kt/Desktop/ros_test/build && $(MAKE) -f mypkg/CMakeFiles/node4.dir/build.make mypkg/CMakeFiles/node4.dir/build
+.PHONY : node4/fast
+
+# Convenience name for target.
 mypkg/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
 	cd /home/kt/Desktop/ros_test/build && $(MAKE) -f CMakeFiles/Makefile2 mypkg/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 .PHONY : mypkg/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
@@ -848,6 +863,33 @@ src/node3_get_node1-2.cpp.s:
 	cd /home/kt/Desktop/ros_test/build && $(MAKE) -f mypkg/CMakeFiles/node3.dir/build.make mypkg/CMakeFiles/node3.dir/src/node3_get_node1-2.cpp.s
 .PHONY : src/node3_get_node1-2.cpp.s
 
+src/node4_single_track.o: src/node4_single_track.cpp.o
+
+.PHONY : src/node4_single_track.o
+
+# target to build an object file
+src/node4_single_track.cpp.o:
+	cd /home/kt/Desktop/ros_test/build && $(MAKE) -f mypkg/CMakeFiles/node4.dir/build.make mypkg/CMakeFiles/node4.dir/src/node4_single_track.cpp.o
+.PHONY : src/node4_single_track.cpp.o
+
+src/node4_single_track.i: src/node4_single_track.cpp.i
+
+.PHONY : src/node4_single_track.i
+
+# target to preprocess a source file
+src/node4_single_track.cpp.i:
+	cd /home/kt/Desktop/ros_test/build && $(MAKE) -f mypkg/CMakeFiles/node4.dir/build.make mypkg/CMakeFiles/node4.dir/src/node4_single_track.cpp.i
+.PHONY : src/node4_single_track.cpp.i
+
+src/node4_single_track.s: src/node4_single_track.cpp.s
+
+.PHONY : src/node4_single_track.s
+
+# target to generate assembly for a file
+src/node4_single_track.cpp.s:
+	cd /home/kt/Desktop/ros_test/build && $(MAKE) -f mypkg/CMakeFiles/node4.dir/build.make mypkg/CMakeFiles/node4.dir/src/node4_single_track.cpp.s
+.PHONY : src/node4_single_track.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -876,6 +918,7 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... mypkg_gennodejs"
 	@echo "... roscpp_generate_messages_nodejs"
+	@echo "... node4"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_lisp"
@@ -910,6 +953,9 @@ help:
 	@echo "... src/node3_get_node1-2.o"
 	@echo "... src/node3_get_node1-2.i"
 	@echo "... src/node3_get_node1-2.s"
+	@echo "... src/node4_single_track.o"
+	@echo "... src/node4_single_track.i"
+	@echo "... src/node4_single_track.s"
 .PHONY : help
 
 

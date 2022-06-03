@@ -145,10 +145,12 @@ include_directories(include ${OpenCV_INCLUDE_DIRS})
 add_executable(node1  src/node1_send_img.cpp )
 add_executable(node2  src/node2_get_img_deal.cpp)
 add_executable(node3  src/node3_get_node1-2.cpp)
+add_executable(node4  src/node4_single_track.cpp)
 
 add_dependencies(node1 ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(node2 ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(node3 ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(node4 ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,11 +166,12 @@ add_dependencies(node3 ${PROJECT_NAME}_generate_messages_cpp)
 target_link_libraries(node1 ${catkin_LIBRARIES})
 target_link_libraries(node2 ${catkin_LIBRARIES})
 target_link_libraries(node3 ${catkin_LIBRARIES})
+target_link_libraries(node4 ${catkin_LIBRARIES})
 # opencv 2022/6/1
 target_link_libraries(node1 ${OpenCV_LIBS})
 target_link_libraries(node2 ${OpenCV_LIBS})
 target_link_libraries(node3 ${OpenCV_LIBS})
-
+target_link_libraries(node4 ${OpenCV_LIBS})
 #############
 ## Install ##
 #############

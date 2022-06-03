@@ -506,6 +506,19 @@ roscpp_generate_messages_nodejs/fast:
 .PHONY : roscpp_generate_messages_nodejs/fast
 
 #=============================================================================
+# Target rules for targets named node4
+
+# Build rule for target.
+node4: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 node4
+.PHONY : node4
+
+# fast build rule for target.
+node4/fast:
+	$(MAKE) -f mypkg/CMakeFiles/node4.dir/build.make mypkg/CMakeFiles/node4.dir/build
+.PHONY : node4/fast
+
+#=============================================================================
 # Target rules for targets named std_msgs_generate_messages_eus
 
 # Build rule for target.
@@ -843,6 +856,7 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... mypkg_gennodejs"
 	@echo "... roscpp_generate_messages_nodejs"
+	@echo "... node4"
 	@echo "... std_msgs_generate_messages_eus"
 	@echo "... geometry_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_lisp"

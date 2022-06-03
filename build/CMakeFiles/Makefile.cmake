@@ -340,6 +340,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "mypkg/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/DependInfo.cmake"
   "mypkg/CMakeFiles/mypkg_gennodejs.dir/DependInfo.cmake"
   "mypkg/CMakeFiles/roscpp_generate_messages_nodejs.dir/DependInfo.cmake"
+  "mypkg/CMakeFiles/node4.dir/DependInfo.cmake"
   "mypkg/CMakeFiles/std_msgs_generate_messages_eus.dir/DependInfo.cmake"
   "mypkg/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/DependInfo.cmake"
   "mypkg/CMakeFiles/std_msgs_generate_messages_lisp.dir/DependInfo.cmake"
