@@ -12,7 +12,7 @@
 #define FIND_GREEN 1
 #define FIND_BLUE 1
 #define FIND_YELLOW 1
-
+#define FIND_CAMERA 2
 #define MIN_AREA 1000
 
 namespace mynamespace {

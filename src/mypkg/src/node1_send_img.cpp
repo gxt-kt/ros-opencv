@@ -13,6 +13,7 @@
 #include "opencv2/imgcodecs/legacy/constants_c.h" // to solve the bug CV_LOAD_IMAGE_COLOR
 #include "sstream"
 #include <iostream>
+#include "mypkg/color_config.h"
 
 using namespace cv;
 
@@ -55,7 +56,7 @@ int main(int argc, char *argv[]) {
 //    return 0;
   cv::Mat image;
   cv::VideoCapture capture;
-  capture.open(0);
+  capture.open(FIND_CAMERA);
   capture.set(cv::CAP_PROP_FRAME_WIDTH, 640);
   capture.set(cv::CAP_PROP_FRAME_HEIGHT, 480);
   if (capture.isOpened()) {
